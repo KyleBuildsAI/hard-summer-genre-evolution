@@ -1,5 +1,6 @@
 import GenreChart from "@/components/GenreChart";
 import TrendChart from "@/components/TrendChart";
+import StoryAndLegends from "@/components/StoryAndLegends";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <main className="px-4 pb-16">
         <GenreChart />
         <TrendChart />
+        <StoryAndLegends />
       </main>
       <footer className="text-center pb-8 text-xs text-zinc-700">
         Built by{" "}
