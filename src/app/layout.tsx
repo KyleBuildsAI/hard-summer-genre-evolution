@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "HARD Summer Genre Evolution | Kyle Coleman",
+  title: "HARD Summer Genre Analytics | Kyle Coleman",
   description:
     "I used Claude Code to research 800+ artist appearances across 11 years of HARD Summer lineups and visualize how the festival's genres have shifted from 2015 to 2026.",
 };

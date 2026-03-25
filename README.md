@@ -1,4 +1,4 @@
-# HARD Summer Genre Evolution (2015-2026)
+# HARD Summer Genre Analytics — 11 Years of Lineup Data (2015-2026)
 
 **[View Live](https://hard-summer-genre-evolution.vercel.app)**
 
