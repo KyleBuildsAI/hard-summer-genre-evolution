@@ -1,5 +1,7 @@
 # HARD Summer Genre Evolution (2015-2026)
 
+**[View Live](https://hard-summer-genre-evolution.vercel.app)**
+
 HARD Summer is my favorite music festival, and I've been going for years. I was curious how the music has actually changed over time — it feels different every year, but I wanted to see the data behind that feeling.
 
 I used **Claude Code** to research every lineup from 2015 to 2026, categorize 800+ artist appearances by genre, and build an interactive visualization that makes the trends easy to see and fun to explore. Along the way I built in accuracy checks, cross-referencing artist counts and genre classifications against multiple sources to make sure the data holds up.
@@ -32,18 +34,31 @@ This project shows what I think good prompting looks like: knowing the right que
 
 ## Tech Stack
 
-- **Next.js** (App Router, TypeScript)
-- **Recharts** for interactive charts
-- **Tailwind CSS** for styling
+### Framework & Language
+- **[Next.js 16](https://nextjs.org/)** — React framework using the App Router for file-based routing and server components. Pages are server-rendered by default, with client components (`"use client"`) opted in only where interactivity is needed (charts, toggles, expandable lists).
+- **[TypeScript](https://www.typescriptlang.org/)** — Strict mode enabled. All data is fully typed with a `Genre` union type (21 genres), `Artist` and `YearData` interfaces, ensuring the dataset stays consistent as it grows.
+- **[React 19](https://react.dev/)** — Latest React with hooks (`useState`, `useMemo`, `useCallback`) for state management. No external state library needed — the data is static and derived computations are memoized.
 
-## Getting Started
+### Data Visualization
+- **[Recharts 3](https://recharts.org/)** — Built on top of D3 and React. Used for all chart types:
+  - `PieChart` with `innerRadius`/`outerRadius` for donut-style genre breakdowns, custom label rendering for percentage overlays, and click-to-expand artist lists
+  - `LineChart` with hover-to-highlight, click-to-toggle, and double-click-to-isolate interactions on genre trend lines
+  - `AreaChart` with `stackId` for stacked genre share visualization
+  - Custom `Tooltip` components for rich hover states showing sorted genre breakdowns with color-coded dots
+- **Custom heat map table** — Pure HTML/CSS table with dynamic `backgroundColor` opacity calculated from genre percentage intensity, no charting library needed
 
-```bash
-npm install
-npm run dev
-```
+### Styling & UI
+- **[Tailwind CSS 4](https://tailwindcss.com/)** — Utility-first CSS with the new PostCSS plugin (`@tailwindcss/postcss`). Dark theme built with zinc color scale. Responsive grid layouts (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`) for artist cards and takeaway sections.
+- **Custom animations** — `fadeIn` keyframe animation on tab switches and year changes for smooth content transitions
+- **[Geist font family](https://vercel.com/font)** — Geist Sans and Geist Mono loaded via `next/font/google` with CSS variable injection for clean typography
 
-Open [http://localhost:3000](http://localhost:3000) to view the app.
+### Data Architecture
+- **Single-source dataset** (`src/data/lineups.ts`) — All 800+ artist-genre mappings stored as a typed TypeScript array. Each year entry includes location, cancellation status, and a full artist roster with genre tags. This makes the data easy to audit, update, and extend.
+- **Derived computations** — Genre breakdowns, trend percentages, artist appearance counts, and "legends" rankings are all computed at render time from the source data using `useMemo`, keeping the dataset flat and the logic transparent.
+- **Artist normalization** — B2B and collaborative sets (e.g., "Skrillex b2b Four Tet") are automatically split into individual artists for accurate cross-year appearance tracking via regex-based name parsing.
+
+### Deployment
+- **[Vercel](https://vercel.com/)** — Deployed with zero config. Automatic builds on push to `main`. Edge-optimized delivery with Next.js server components pre-rendered at build time.
 
 ## Author
 
